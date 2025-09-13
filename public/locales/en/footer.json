@@ -1,0 +1,20 @@
+{
+  "description": "Building the future through community-driven learning, collaboration, and innovation in technology.",
+  "quick_links": "Quick Links",
+  "connect": "Connect With Us",
+  "newsletter": {
+    "title": "Stay Updated",
+    "description": "Get the latest updates on our events and activities",
+    "placeholder": "Enter your email",
+    "subscribe": "Subscribe"
+  },
+  "copyright": "© 2024 Google Developer Groups. All rights reserved.",
+  "links": {
+    "about": "About",
+    "events": "Events",
+    "projects": "Projects",
+    "contact": "Contact",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "title": "Upcoming Events",
+  "subtitle": "Join our community events and workshops",
+  "filters": {
+    "all": "All Events",
+    "featured": "Featured",
+    "online": "Online"
+  },
+  "no_events": "No events found matching your criteria.",
+  "event": {
+    "register": "Register",
+    "learn_more": "Learn More",
+    "seats_left": "seats left",
+    "full": "Event Full"
+  }
+}

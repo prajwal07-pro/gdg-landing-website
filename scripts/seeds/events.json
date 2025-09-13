@@ -1,0 +1,15 @@
+
+[
+  {
+    "title": "Firebase Auth + Firestore Kickoff",
+    "description": "Hands-on auth, rules, and RSVP flow.",
+    "start": { "_seconds": 1750000000, "_nanoseconds": 0 },
+    "end": { "_seconds": 1750003600, "_nanoseconds": 0 },
+    "location": "Auditorium A",
+    "online": false,
+    "coverImage": "/covers/firebase.jpg",
+    "tags": ["Firebase", "Web"],
+    "status": "upcoming",
+    "featured": true
+  }
+]

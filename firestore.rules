@@ -1,0 +1,48 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Events collection - public read, admin write
+    match /events/{eventId} {
+      allow read: if true;
+      allow write: if request.auth != null && 
+                     (request.auth.token.admin == true || 
+                      request.auth.token.organizer == true);
+    }
+    
+    // Projects collection - public read, admin write  
+    match /projects/{projectId} {
+      allow read: if true;
+      allow write: if request.auth != null && 
+                     (request.auth.token.admin == true || 
+                      request.auth.token.organizer == true);
+    }
+    
+    // RSVPs collection - authenticated users can create their own
+    match /rsvps/{rsvpId} {
+      allow read: if request.auth != null && request.auth.uid == resource.data.uid;
+      allow create: if request.auth != null && 
+                      request.auth.uid == request.resource.data.uid &&
+                      validateRSVP(request.resource.data);
+    }
+    
+    // Members collection - public read for basic info, admin write
+    match /members/{memberId} {
+      allow read: if true;
+      allow write: if request.auth != null && 
+                     (request.auth.token.admin == true || 
+                      request.auth.uid == memberId);
+    }
+    
+    // Highlights/stats - public read, admin write
+    match /stats/{statId} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.token.admin == true;
+    }
+    
+    function validateRSVP(data) {
+      return data.keys().hasAll(['eventId', 'uid', 'createdAt']) &&
+             data.eventId is string &&
+             data.uid is string;
+    }
+  }
+}
