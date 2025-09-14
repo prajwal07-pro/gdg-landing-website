@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
@@ -6,7 +6,7 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const { t, i18n } = useTranslation();
+  const {  i18n } = useTranslation();
   const navRef = useRef(null);
 
   useEffect(() => {
@@ -250,7 +250,7 @@ const Navigation = () => {
             >
               <div className="bg-light-secondary/95 backdrop-blur-lg rounded-2xl p-6 m-4 border border-light-border">
                 <div className="space-y-4">
-                  {navItems.map((item, index) => (
+                  {navItems.map((item) => (
                     <motion.button
                       key={item.id}
                       onClick={() => scrollToSection(item.id)}

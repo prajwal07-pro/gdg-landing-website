@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { motion, useAnimation, useMotionValue, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
 const Hero = () => {
-  const { t } = useTranslation();
-  const controls = useAnimation();
+  const { t: _t } = useTranslation(['hero', 'common'])
+const _controls = undefined // remove entirely if not needed
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   
   const x = useMotionValue(0);

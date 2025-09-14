@@ -1,4 +1,4 @@
-import React, { useRef, useState, useMemo } from 'react';
+import { useRef, useState, useMemo } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 
 const Events = () => {
@@ -192,7 +192,7 @@ const Events = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: 0.2 }}
             >
-              {filters.map((filter, index) => (
+              {filters.map((filter) => (
                 <motion.button
                   key={filter}
                   onClick={() => setSelectedFilter(filter)}
@@ -219,7 +219,7 @@ const Events = () => {
             key={selectedFilter} // Force re-render on filter change
           >
             <AnimatePresence mode="popLayout">
-              {filteredEvents.map((event, index) => (
+              {filteredEvents.map((event) => (
                 <motion.div
                   key={event.id}
                   className="gdg-card p-6 group cursor-pointer"
