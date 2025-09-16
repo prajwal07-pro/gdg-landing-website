@@ -34,7 +34,7 @@ const HomePage = () => (
       <CommunityValues />
       <Events />
       <Projects />
-      <TeamMembers /> {/* Changed from Technologies */}
+      <TeamMembers />
       <Highlights />
     </main>
     <Footer />
@@ -45,22 +45,25 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
+    // Initialize Firebase and other services
     console.log('GDG VTU Website Loaded');
+    
+    // Scroll to top on route change
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
   return (
     <div className="App">
-      <BrowserRouter>
       <ErrorFallback>
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<HomePage />} />
             <Route path="/signin" element={<SignIn />} />
+            {/* Add catch-all route for 404s */}
+            <Route path="*" element={<HomePage />} />
           </Routes>
         </AnimatePresence>
       </ErrorFallback>
-      </BrowserRouter>
     </div>
   );
 }
