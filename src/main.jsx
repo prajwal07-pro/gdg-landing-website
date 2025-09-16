@@ -1,21 +1,22 @@
- 
-// src/main.jsx
-import React, { StrictMode, Suspense } from 'react'
-import ReactDOM from 'react-dom/client'
-import './styles/global.css'
-import './i18n'
-import App from './App'
+import React, { Suspense } from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import "./styles/global.css";
+import App from "./App";
+import LoadingSpinner from "./components/LoadingSpinner";
 
-const LoadingFallback = () => (
-  <div className="min-h-screen grid place-items-center text-center p-8">
-    <div className="animate-pulse text-xl">Loading…</div>
-  </div>
-)
-
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <Suspense fallback={<LoadingFallback />}>
-      <App />
-    </Suspense>
-  </StrictMode>
-)
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <Suspense 
+        fallback={
+          <div className="min-h-screen flex items-center justify-center">
+            <LoadingSpinner size="lg" text="Loading GDG Chapter..." />
+          </div>
+        }
+      >
+        <App />
+      </Suspense>
+    </BrowserRouter>
+  </React.StrictMode>
+);

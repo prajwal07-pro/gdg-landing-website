@@ -7,87 +7,90 @@ const Events = () => {
   const [selectedFilter, setSelectedFilter] = useState('All Events');
   const [hoveredEvent, setHoveredEvent] = useState(null);
 
-  const filters = ['All Events', 'Workshops', 'Online', 'Offline', 'Upcoming'];
+  const filters = ['All Events', 'DevFest', 'Workshops', 'Online', 'Offline', 'Upcoming'];
 
   const events = [
     {
       id: 1,
-      title: 'Web Development Workshop',
-      date: 'Dec 15, 2024',
-      time: '2:00 PM IST',
-      location: 'Online',
-      type: 'Workshop',
-      attendees: 120,
-      image: '🌐',
+      title: 'DevFest Bengaluru 2025',
+      date: 'Nov 22',
+      time: '9:00 AM IST',
+      location: 'Bengaluru',
+      type: 'DevFest',
+      attendees: 500,
+      image: '/events/devfest-bengaluru.png',
       status: 'upcoming',
-      description: 'Learn modern web development with React, Node.js and best practices'
+      description: 'The biggest developer festival in Bengaluru featuring talks, workshops, and networking',
+      featured: true,
+      cohosted: false
     },
     {
       id: 2,
-      title: 'Mobile App Development',
-      date: 'Dec 20, 2024',
+      title: 'Google I/O Extended 2025',
+      date: 'Sep 20',
       time: '10:00 AM IST',
-      location: 'Tech Hub',
-      type: 'Workshop',
-      attendees: 85,
-      image: '📱',
+      location: 'Chennai',
+      type: 'Conference',
+      attendees: 300,
+      image: '/events/google-io-extended.png',
       status: 'upcoming',
-      description: 'Build amazing mobile apps using Flutter and modern development tools'
+      description: 'Extended coverage of Google I/O with local speakers and hands-on sessions'
     },
     {
       id: 3,
-      title: 'Cloud Computing Meetup',
-      date: 'Dec 25, 2024',
-      time: '4:00 PM IST',
-      location: 'Online',
-      type: 'Meetup',
-      attendees: 200,
-      image: '☁️',
+      title: 'DevFest 2025 Chennai',
+      date: 'Nov 8',
+      time: '9:30 AM IST',
+      location: 'Chennai',
+      type: 'DevFest',
+      attendees: 400,
+      image: '/events/devfest-chennai.png',
       status: 'upcoming',
-      description: 'Explore Google Cloud Platform and learn about scalable cloud solutions'
+      description: 'Annual developer festival with latest Google technologies and innovations',
+      cohosted: true
     },
     {
       id: 4,
-      title: 'AI/ML Workshop',
-      date: 'Jan 5, 2025',
-      time: '11:00 AM IST',
-      location: 'Campus',
-      type: 'Workshop',
-      attendees: 150,
-      image: '🤖',
+      title: 'DevFest Kochi 2025',
+      date: 'Nov 1',
+      time: '8:30 AM IST',
+      location: 'Kochi',
+      type: 'DevFest',
+      attendees: 350,
+      image: '/events/devfest-kochi.png',
       status: 'upcoming',
-      description: 'Introduction to Machine Learning with TensorFlow and practical examples'
+      description: 'Kerala\'s premier developer conference featuring AI, Cloud, and Mobile technologies'
     },
     {
       id: 5,
-      title: 'UI/UX Design Workshop',
-      date: 'Jan 10, 2025',
-      time: '3:00 PM IST',
-      location: 'Design Studio',
+      title: 'Cloud Computing Workshop',
+      date: 'Oct 15',
+      time: '2:00 PM IST',
+      location: 'Online',
       type: 'Workshop',
-      attendees: 75,
-      image: '🎨',
+      attendees: 150,
+      image: '/events/cloud-computing.png',
       status: 'upcoming',
-      description: 'Learn design principles and create beautiful user interfaces'
+      description: 'Deep dive into Google Cloud Platform and serverless architectures'
     },
     {
       id: 6,
-      title: 'Blockchain Development',
-      date: 'Jan 15, 2025',
-      time: '1:00 PM IST',
-      location: 'Online',
+      title: 'AI/ML Bootcamp',
+      date: 'Oct 25',
+      time: '10:00 AM IST',
+      location: 'VTU Campus',
       type: 'Workshop',
-      attendees: 95,
-      image: '🔗',
+      attendees: 200,
+      image: '/events/ai-ml-workshop.png',
       status: 'upcoming',
-      description: 'Build decentralized applications using modern blockchain technologies'
+      description: 'Hands-on machine learning workshop with TensorFlow and real-world projects'
     }
   ];
 
-  // Optimized filtering with useMemo to prevent unnecessary recalculations
   const filteredEvents = useMemo(() => {
     return events.filter(event => {
       if (selectedFilter === 'All Events') return true;
+      if (selectedFilter === 'DevFest') return event.type === 'DevFest';
       if (selectedFilter === 'Workshops') return event.type === 'Workshop';
       if (selectedFilter === 'Online') return event.location === 'Online';
       if (selectedFilter === 'Offline') return event.location !== 'Online';
@@ -96,7 +99,6 @@ const Events = () => {
     });
   }, [selectedFilter, events]);
 
-  // Simplified animations for better performance
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -109,238 +111,203 @@ const Events = () => {
   };
 
   const cardVariants = {
-    hidden: { 
-      opacity: 0,
-      y: 20,
-      scale: 0.95
-    },
+    hidden: { opacity: 0, y: 20, scale: 0.95 },
     visible: {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: {
-        duration: 0.3,
-        ease: "easeOut"
-      }
+      transition: { duration: 0.3, ease: "easeOut" }
     }
   };
 
   const filterVariants = {
     hidden: { opacity: 0, x: -20 },
-    visible: { 
-      opacity: 1, 
-      x: 0,
-      transition: { duration: 0.2 }
-    }
+    visible: { opacity: 1, x: 0, transition: { duration: 0.2 } }
   };
 
   return (
-    <section id="events" className="gdg-section bg-light-primary relative overflow-hidden" ref={ref}>
-      {/* Simplified Background */}
-      <div className="absolute inset-0">
-        <motion.div 
-          className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-gdg-blue/3 via-transparent to-gdg-green/3"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        />
-      </div>
+    <section id="events" className="gdg-section bg-light-secondary relative overflow-hidden">
+      <div className="gdg-container">
+        {/* Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(10)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-64 h-64 bg-gdg-blue/5 rounded-full blur-3xl"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.3, 0.6, 0.3],
+              }}
+              transition={{
+                duration: 4 + Math.random() * 2,
+                repeat: Infinity,
+                delay: Math.random() * 2,
+              }}
+            />
+          ))}
+        </div>
 
-      <div className="gdg-container relative z-10">
-        <motion.div 
+        {/* Section Header */}
+        <motion.div
+          className="text-center mb-16 relative z-10"
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
+            Join our community events and{" "}
+            <span className="bg-gdg-gradient bg-clip-text text-transparent">
+              workshops
+            </span>
+          </h2>
+          <p className="text-xl text-text-secondary max-w-3xl mx-auto">
+            Discover amazing tech events, workshops, and DevFest conferences happening in your area
+          </p>
+        </motion.div>
+
+        {/* Filter Buttons */}
+        <motion.div
+          className="flex flex-wrap justify-center gap-4 mb-12 relative z-10"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          {/* Section Header */}
-          <motion.div 
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-          >
-            <motion.div 
-              className="inline-flex items-center space-x-3 mb-6"
-              whileHover={{ scale: 1.02 }}
+          {filters.map((filter) => (
+            <motion.button
+              key={filter}
+              onClick={() => setSelectedFilter(filter)}
+              className={`px-6 py-3 rounded-full font-medium transition-all duration-200 ${
+                selectedFilter === filter
+                  ? 'bg-gdg-blue text-white shadow-lg'
+                  : 'bg-white text-text-secondary hover:bg-gdg-blue/10 hover:text-gdg-blue shadow-md'
+              }`}
+              variants={filterVariants}
+              whileHover={{ scale: 1.05, y: -1 }}
+              whileTap={{ scale: 0.98 }}
+              layout
             >
-              <motion.span 
-                className="text-5xl"
-                animate={{ 
-                  rotate: [0, 5, -5, 0],
-                  scale: [1, 1.05, 1]
-                }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                🎉
-              </motion.span>
-              <h2 className="text-4xl lg:text-6xl font-bold text-text-primary">
-                Join our community events and{" "}
-                <motion.span 
-                  className="gdg-gradient-text"
-                  animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
-                  transition={{ duration: 3, repeat: Infinity }}
-                >
-                  workshops
-                </motion.span>
-              </h2>
-            </motion.div>
-            
-            {/* Optimized Filter Buttons */}
-            <motion.div 
-              className="flex flex-wrap justify-center gap-3 mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: 0.2 }}
-            >
-              {filters.map((filter) => (
-                <motion.button
-                  key={filter}
-                  onClick={() => setSelectedFilter(filter)}
-                  className={`px-6 py-3 rounded-full font-medium transition-all duration-200 ${
-                    selectedFilter === filter 
-                      ? 'bg-gdg-blue text-white shadow-md' 
-                      : 'bg-light-accent text-text-secondary hover:bg-gdg-blue/10 hover:text-gdg-blue'
-                  }`}
-                  variants={filterVariants}
-                  whileHover={{ scale: 1.05, y: -1 }}
-                  whileTap={{ scale: 0.98 }}
-                  layout
-                >
-                  {filter}
-                </motion.button>
-              ))}
-            </motion.div>
-          </motion.div>
-
-          {/* Optimized Events Grid */}
-          <motion.div 
-            className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mb-12"
-            variants={containerVariants}
-            key={selectedFilter} // Force re-render on filter change
-          >
-            <AnimatePresence mode="popLayout">
-              {filteredEvents.map((event) => (
-                <motion.div
-                  key={event.id}
-                  className="gdg-card p-6 group cursor-pointer"
-                  variants={cardVariants}
-                  layout
-                  onHoverStart={() => setHoveredEvent(event.id)}
-                  onHoverEnd={() => setHoveredEvent(null)}
-                  whileHover={{ 
-                    scale: 1.02,
-                    y: -4,
-                    transition: { duration: 0.2 }
-                  }}
-                  exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
-                >
-                  {/* Event Image/Icon */}
-                  <div className="relative mb-6 overflow-hidden rounded-xl">
-                    <motion.div 
-                      className="w-full h-40 bg-light-accent flex items-center justify-center relative"
-                    >
-                      <motion.div 
-                        className="text-6xl"
-                        animate={hoveredEvent === event.id ? {
-                          scale: [1, 1.1, 1],
-                          rotate: [0, 5, -5, 0]
-                        } : {}}
-                        transition={{ duration: 0.4 }}
-                      >
-                        {event.image}
-                      </motion.div>
-                    </motion.div>
-                    
-                    {/* Event Type Badge */}
-                    <div className="absolute top-3 right-3">
-                      <span className="px-3 py-1 bg-gdg-blue text-white text-xs font-medium rounded-full shadow-md">
-                        {event.type}
-                      </span>
-                    </div>
-
-                    {/* Status Indicator */}
-                    <motion.div 
-                      className="absolute top-3 left-3 w-3 h-3 bg-gdg-green rounded-full"
-                      animate={{ 
-                        scale: [1, 1.2, 1]
-                      }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    />
-                  </div>
-
-                  {/* Event Details */}
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-bold text-text-primary group-hover:text-gdg-blue transition-colors duration-200">
-                      {event.title}
-                    </h3>
-                    
-                    <p className="text-text-secondary text-sm line-clamp-2">
-                      {event.description}
-                    </p>
-                    
-                    {/* Event Meta Information */}
-                    <div className="space-y-2 text-text-secondary text-sm">
-                      <div className="flex items-center space-x-2">
-                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-                        </svg>
-                        <span>{event.date} at {event.time}</span>
-                      </div>
-                      
-                      <div className="flex items-center space-x-2">
-                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                        </svg>
-                        <span>{event.location}</span>
-                      </div>
-                      
-                      <div className="flex items-center space-x-2">
-                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
-                        </svg>
-                        <span>{event.attendees} attending</span>
-                      </div>
-                    </div>
-
-                    {/* RSVP Button */}
-                    <motion.button
-                      className="w-full gdg-button-primary"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <span className="mr-2">🚀</span>
-                      RSVP Now
-                    </motion.button>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
-
-          {/* No Events Message */}
-          {filteredEvents.length === 0 && (
-            <motion.div 
-              className="text-center py-16"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="w-20 h-20 bg-light-accent rounded-full flex items-center justify-center mx-auto mb-6">
-                <div className="text-3xl">📅</div>
-              </div>
-              <h3 className="text-2xl font-bold text-text-primary mb-4">No events found</h3>
-              <p className="text-text-secondary mb-6">Try selecting a different filter</p>
-              <motion.button
-                className="gdg-button-primary"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setSelectedFilter('All Events')}
-              >
-                View All Events
-              </motion.button>
-            </motion.div>
-          )}
+              {filter}
+            </motion.button>
+          ))}
         </motion.div>
+
+        {/* Events Grid */}
+        <motion.div
+          ref={ref}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
+          <AnimatePresence>
+            {filteredEvents.map((event) => (
+              <motion.div
+                key={event.id}
+                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group cursor-pointer"
+                variants={cardVariants}
+                onHoverStart={() => setHoveredEvent(event.id)}
+                onHoverEnd={() => setHoveredEvent(null)}
+                whileHover={{ scale: 1.02, y: -4 }}
+                exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
+                layout
+              >
+                {/* Event Image */}
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    onError={(e) => {
+                      e.target.src = `https://via.placeholder.com/400x200/4285F4/white?text=${encodeURIComponent(event.title)}`;
+                    }}
+                  />
+                  
+                  {/* Overlay Badges */}
+                  <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
+                    <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                      event.type === 'DevFest' 
+                        ? 'bg-gdg-red text-white' 
+                        : 'bg-gdg-blue text-white'
+                    }`}>
+                      {event.type}
+                    </span>
+                    {event.cohosted && (
+                      <div className="bg-gdg-blue text-white px-2 py-1 rounded-full text-xs flex items-center">
+                        <span className="mr-1">👥</span>
+                        cohosted
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Date Badge */}
+                  <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg">
+                    <span className="text-gdg-blue font-medium text-sm">{event.date}</span>
+                  </div>
+                </div>
+
+                {/* Event Content */}
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-text-primary mb-2 group-hover:text-gdg-blue transition-colors">
+                    {event.title}
+                  </h3>
+                  <p className="text-text-secondary mb-4 line-clamp-2">
+                    {event.description}
+                  </p>
+
+                  {/* Event Meta */}
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center text-sm text-text-light">
+                      <span className="mr-2">📅</span>
+                      <span>{event.date} at {event.time}</span>
+                    </div>
+                    <div className="flex items-center text-sm text-text-light">
+                      <span className="mr-2">📍</span>
+                      <span>{event.location}</span>
+                    </div>
+                    <div className="flex items-center text-sm text-text-light">
+                      <span className="mr-2">👥</span>
+                      <span>{event.attendees} attending</span>
+                    </div>
+                  </div>
+
+                  {/* RSVP Button */}
+                  <motion.button
+                    className="w-full bg-gdg-gradient text-white py-3 px-4 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-200"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    RSVP Now
+                  </motion.button>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
+        {/* No Events Message */}
+        {filteredEvents.length === 0 && (
+          <motion.div
+            className="text-center py-16 relative z-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            <div className="text-6xl mb-4">📅</div>
+            <h3 className="text-2xl font-bold text-text-primary mb-2">No events found</h3>
+            <p className="text-text-secondary mb-6">Try selecting a different filter</p>
+            <motion.button
+              onClick={() => setSelectedFilter('All Events')}
+              className="bg-gdg-blue text-white px-6 py-3 rounded-full font-medium hover:bg-gdg-blue/90 transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              View All Events
+            </motion.button>
+          </motion.div>
+        )}
       </div>
     </section>
   );

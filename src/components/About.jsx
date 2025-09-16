@@ -225,37 +225,7 @@ const About = () => {
             className="text-center mt-16"
             variants={itemVariants}
           >
-            <motion.div 
-              className="inline-flex items-center space-x-4 bg-gradient-to-r from-gdg-blue/10 to-gdg-green/10 px-8 py-4 rounded-2xl border border-gdg-blue/20"
-              whileHover={{ scale: 1.05 }}
-              animate={{ 
-                boxShadow: [
-                  "0 0 20px rgba(66, 133, 244, 0.1)",
-                  "0 0 40px rgba(66, 133, 244, 0.2)",
-                  "0 0 20px rgba(66, 133, 244, 0.1)"
-                ]
-              }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              <motion.span 
-                className="text-3xl"
-                animate={{ rotate: [0, 10, -10, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                💡
-              </motion.span>
-              <div>
-                <h4 className="text-lg font-semibold text-gdg-blue">Ready to innovate together?</h4>
-                <p className="text-sm text-text-secondary">Join our community and be part of something amazing</p>
-              </div>
-              <motion.button
-                className="gdg-button-primary"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Get Started
-              </motion.button>
-            </motion.div>
+            
           </motion.div>
         </motion.div>
       </div>

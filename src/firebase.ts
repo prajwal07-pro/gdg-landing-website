@@ -1,7 +1,7 @@
 // src/firebase.ts
 import { initializeApp } from 'firebase/app'
-import { getAuth, GoogleAuthProvider, connectAuthEmulator } from 'firebase/auth'
-import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore'
+import { getAuth, GoogleAuthProvider } from 'firebase/auth'
+import { getFirestore } from 'firebase/firestore'
 import { getAnalytics } from 'firebase/analytics'
 import { getPerformance } from 'firebase/performance'
 
@@ -23,6 +23,14 @@ for (const key of requiredConfig) {
   }
 }
 
+// Debug log (remove in production)
+console.log('Firebase Config Status:', {
+  apiKey: !!firebaseConfig.apiKey,
+  authDomain: !!firebaseConfig.authDomain,
+  projectId: !!firebaseConfig.projectId,
+  appId: !!firebaseConfig.appId,
+})
+
 // Initialize Firebase core
 export const app = initializeApp(firebaseConfig)
 
@@ -42,15 +50,7 @@ export const analytics =
 export const perf =
   typeof window !== 'undefined' && import.meta.env.PROD ? getPerformance(app) : null
 
-// Connect to emulators in dev (must be synchronous and before first usage)
-if (import.meta.env.DEV && typeof window !== 'undefined') {
-  try {
-    connectAuthEmulator(auth, 'http://localhost:9099', { disableWarnings: true })
-    connectFirestoreEmulator(db, 'localhost', 8080)
-  } catch (err) {
-    // Already connected or emulators not running
-    console.warn('Firebase emulators not connected:', err)
-  }
-}
+// 🚫 REMOVED EMULATOR CONNECTIONS - This was causing your network error!
+// ❌ No more connectAuthEmulator or connectFirestoreEmulator
 
 export default app

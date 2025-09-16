@@ -1,283 +1,245 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
+import { useAuth } from '../hooks/useAuth';
 
 const Navigation = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
-  const {  i18n } = useTranslation();
-  const navRef = useRef(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-      
-      // Update active section based on scroll position
-      const sections = ['home', 'about', 'technologies', 'events', 'projects', 'community'];
-      const scrollPosition = window.scrollY + 100;
-      
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const element = document.getElementById(sections[i]);
-        if (element && element.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i]);
-          break;
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const languages = [
-    { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'hi', name: 'हिंदी', flag: '🇮🇳' },
-    { code: 'kn', name: 'ಕನ್ನಡ', flag: '🇮🇳' },
-    { code: 'mr', name: 'मराठी', flag: '🇮🇳' }
-  ];
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const { user, logout, isAuthenticated, loading } = useAuth();
+  const navigate = useNavigate();
 
   const navItems = [
-    { id: 'home', label: 'Home', icon: '🏠' },
-    { id: 'about', label: 'About', icon: '📖' },
-    { id: 'technologies', label: 'Tech Stack', icon: '⚡' },
-    { id: 'events', label: 'Events', icon: '📅' },
-    { id: 'projects', label: 'Projects', icon: '🚀' },
-    { id: 'community', label: 'Community', icon: '👥' }
+    { key: 'about', href: '#about', label: 'About' },
+    { key: 'events', href: '#events', label: 'Events' },
+    { key: 'projects', href: '#projects', label: 'Projects' },
+    { key: 'community', href: '#community', label: 'Community' }
   ];
 
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsOpen(false);
+  const handleJoinCommunity = () => {
+    navigate('/signin');
+    setIsMenuOpen(false);
   };
 
-  const navVariants = {
-    hidden: { y: -100, opacity: 0 },
-    visible: { 
-      y: 0, 
-      opacity: 1,
-      transition: { 
-        duration: 0.8,
-        ease: "easeOut",
-        staggerChildren: 0.1
-      }
+  const handleLogout = async () => {
+    try {
+      await logout();
+      setIsProfileDropdownOpen(false);
+      setIsMenuOpen(false);
+    } catch (error) {
+      console.error('Logout failed:', error);
     }
   };
 
-  const itemVariants = {
-    hidden: { y: -20, opacity: 0 },
-    visible: { 
-      y: 0, 
-      opacity: 1,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
+  const handleProfileClick = () => {
+    setIsProfileDropdownOpen(!isProfileDropdownOpen);
   };
 
-  const mobileMenuVariants = {
-    closed: {
-      opacity: 0,
-      height: 0,
-      transition: {
-        duration: 0.3,
-        staggerChildren: 0.05,
-        staggerDirection: -1
-      }
-    },
-    open: {
-      opacity: 1,
-      height: 'auto',
-      transition: {
-        duration: 0.3,
-        staggerChildren: 0.07,
-        delayChildren: 0.2
-      }
-    }
+  const getUserDisplayName = () => {
+    return user?.displayName || user?.email?.split('@')[0] || 'User';
   };
 
-  const mobileItemVariants = {
-    closed: { x: -50, opacity: 0 },
-    open: { x: 0, opacity: 1 }
+  const getUserAvatar = () => {
+    return user?.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(getUserDisplayName())}&background=4285F4&color=ffffff&size=40`;
   };
 
   return (
-    <motion.nav 
-      ref={navRef}
-      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-        isScrolled 
-          ? 'bg-light-primary/95 backdrop-blur-lg shadow-light border-b border-light-border' 
-          : 'bg-transparent'
-      }`}
-      variants={navVariants}
-      initial="hidden"
-      animate="visible"
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
-          {/* Enhanced Logo */}
-          <motion.div 
-            className="flex items-center space-x-4 cursor-pointer"
-            variants={itemVariants}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => scrollToSection('home')}
-          >
-            {/* GDG Logo SVG */}
-            <div className="relative">
-              <motion.div 
-                className="w-12 h-12 relative"
-                // animate={{ rotate: 360 }}
-                // transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              >
-                <img 
-        src="/gdg-logo.png"  // Update this path to match where you place the file
-        alt="GDG Logo"
-        className="w-full h-full object-contain"
-      />
-    </motion.div>
-              <motion.span 
-                className="text-sm text-text-secondary"
-                initial={{ width: 0 }}
-                animate={{ width: 'auto' }}
-                transition={{ duration: 2, delay: 1 }}
-              >
-                    Google Developer Groups
-              </motion.span>
+        <div className="flex justify-between items-center h-16">
+          {/* Logo */}
+          <Link to="/" className="flex items-center space-x-3">
+            <div className="w-8 h-8 bg-gdg-gradient rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-sm">GDG</span>
             </div>
-          </motion.div>
+            <span className="text-xl font-bold bg-gdg-gradient bg-clip-text text-transparent">
+              GDG Chapter
+            </span>
+          </Link>
 
           {/* Desktop Navigation */}
-          <motion.div 
-            className="hidden lg:flex items-center space-x-8"
-            variants={itemVariants}
-          >
-            {navItems.map((item, index) => (
-              <motion.button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`nav-item px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-                  activeSection === item.id 
-                    ? 'text-gdg-blue bg-gdg-blue/10' 
-                    : 'text-text-primary hover:text-gdg-blue'
-                }`}
-                variants={itemVariants}
-                whileHover={{ y: -2 }}
-                whileTap={{ y: 0 }}
-                custom={index}
+          <div className="hidden md:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <a
+                key={item.key}
+                href={item.href}
+                className="text-gray-700 hover:text-gdg-blue transition-colors duration-200 font-medium"
               >
-                <span className="mr-2">{item.icon}</span>
                 {item.label}
-              </motion.button>
+              </a>
             ))}
-            
-            {/* Enhanced Language Selector */}
-            <motion.div 
-              className="relative"
-              variants={itemVariants}
-              whileHover={{ scale: 1.05 }}
-            >
-              <select 
-                onChange={(e) => i18n.changeLanguage(e.target.value)}
-                className="bg-light-secondary border border-light-border rounded-lg px-3 py-2 text-sm text-text-primary appearance-none pr-8 cursor-pointer focus:outline-none focus:ring-2 focus:ring-gdg-blue/50"
-              >
-                {languages.map(lang => (
-                  <option key={lang.code} value={lang.code}>
-                    {lang.flag} {lang.name}
-                  </option>
-                ))}
-              </select>
-              <div className="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                <motion.div
-                  animate={{ rotate: [0, 180, 0] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  ⌄
-                </motion.div>
-              </div>
-            </motion.div>
-            
-            <motion.button
-              className="gdg-button-primary"
-              variants={itemVariants}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="mr-2">🚀</span>
-              Join Community
-            </motion.button>
-          </motion.div>
+          </div>
 
-          {/* Enhanced Mobile Menu Button */}
-          <motion.div 
-            className="lg:hidden"
-            variants={itemVariants}
+          {/* Desktop Actions */}
+          <div className="hidden md:flex items-center space-x-4">
+            {loading ? (
+              <div className="w-8 h-8 border-2 border-gdg-blue border-t-transparent rounded-full animate-spin"></div>
+            ) : isAuthenticated ? (
+              /* User Profile Dropdown */
+              <div className="relative">
+                <button
+                  onClick={handleProfileClick}
+                  className="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-100 transition-colors"
+                >
+                  <img
+                    src={getUserAvatar()}
+                    alt="Profile"
+                    className="w-8 h-8 rounded-full border-2 border-gdg-blue"
+                  />
+                  <span className="text-sm font-medium text-gray-700 max-w-20 truncate">
+                    {getUserDisplayName()}
+                  </span>
+                  <svg className="w-4 h-4 text-gray-500 transition-transform" style={{ transform: isProfileDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)' }} fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </button>
+                
+                <AnimatePresence>
+                  {isProfileDropdownOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border py-2 z-50"
+                    >
+                      <div className="px-4 py-3 border-b border-gray-100">
+                        <p className="text-sm font-medium text-gray-900 truncate">
+                          {getUserDisplayName()}
+                        </p>
+                        <p className="text-xs text-gray-500 truncate">
+                          {user?.email}
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => {
+                          setIsProfileDropdownOpen(false);
+                        }}
+                        className="flex items-center w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                      >
+                        <svg className="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        Settings
+                      </button>
+                      <button
+                        onClick={handleLogout}
+                        className="flex items-center w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                      >
+                        <svg className="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                        Sign Out
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ) : (
+              /* Blue Join Community Button */
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleJoinCommunity}
+                className="bg-gdg-blue text-white px-6 py-2 rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2 hover:bg-gdg-blue/90"
+              >
+                <span>🚀</span>
+                <span>Join Community</span>
+              </motion.button>
+            )}
+          </div>
+
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden p-2 rounded-md text-gray-700 hover:text-gdg-blue hover:bg-gray-100 transition-colors"
           >
-            <motion.button
-              onClick={() => setIsOpen(!isOpen)}
-              className="relative w-10 h-10 text-text-primary hover:text-gdg-blue p-2 rounded-lg hover:bg-light-secondary transition-colors"
-              whileTap={{ scale: 0.95 }}
-            >
-              <motion.div
-                className="w-full h-0.5 bg-current mb-1.5"
-                animate={isOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-                transition={{ duration: 0.3 }}
-              />
-              <motion.div
-                className="w-full h-0.5 bg-current mb-1.5"
-                animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
-                transition={{ duration: 0.3 }}
-              />
-              <motion.div
-                className="w-full h-0.5 bg-current"
-                animate={isOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-                transition={{ duration: 0.3 }}
-              />
-            </motion.button>
-          </motion.div>
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              {isMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
         </div>
 
-        {/* Enhanced Mobile Navigation */}
+        {/* Mobile Navigation */}
         <AnimatePresence>
-          {isOpen && (
-            <motion.div 
-              className="lg:hidden overflow-hidden"
-              variants={mobileMenuVariants}
-              initial="closed"
-              animate="open"
-              exit="closed"
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden border-t border-gray-200 py-4 space-y-4"
             >
-              <div className="bg-light-secondary/95 backdrop-blur-lg rounded-2xl p-6 m-4 border border-light-border">
-                <div className="space-y-4">
-                  {navItems.map((item) => (
-                    <motion.button
-                      key={item.id}
-                      onClick={() => scrollToSection(item.id)}
-                      className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 ${
-                        activeSection === item.id 
-                          ? 'text-gdg-blue bg-gdg-blue/10 border border-gdg-blue/20' 
-                          : 'text-text-primary hover:text-gdg-blue hover:bg-light-primary'
-                      }`}
-                      variants={mobileItemVariants}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <span className="text-xl">{item.icon}</span>
-                      <span>{item.label}</span>
-                    </motion.button>
-                  ))}
-                  
+              {/* Mobile Nav Items */}
+              {navItems.map((item, index) => (
+                <motion.a
+                  key={item.key}
+                  href={item.href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="block text-gray-700 hover:text-gdg-blue transition-colors font-medium py-2 px-4 rounded-lg hover:bg-gray-50"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  {item.label}
+                </motion.a>
+              ))}
+
+              {/* Mobile Authentication */}
+              <div className="border-t border-gray-200 pt-4 mt-4">
+                {loading ? (
+                  <div className="flex justify-center py-4">
+                    <div className="w-6 h-6 border-2 border-gdg-blue border-t-transparent rounded-full animate-spin"></div>
+                  </div>
+                ) : isAuthenticated ? (
                   <motion.div 
-                    className="pt-4 border-t border-light-border"
-                    variants={mobileItemVariants}
+                    className="space-y-3 px-4"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
                   >
-                    <button className="w-full gdg-button-primary">
-                      <span className="mr-2">🚀</span>
-                      Join Community
+                    <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                      <img
+                        src={getUserAvatar()}
+                        alt="Profile"
+                        className="w-10 h-10 rounded-full border-2 border-gdg-blue"
+                      />
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-gray-900 truncate">{getUserDisplayName()}</p>
+                        <p className="text-sm text-gray-500 truncate">{user?.email}</p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full flex items-center justify-center space-x-2 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                      </svg>
+                      <span>Sign Out</span>
                     </button>
                   </motion.div>
-                </div>
+                ) : (
+                  <motion.button
+                    onClick={handleJoinCommunity}
+                    className="w-full mx-4 bg-gdg-blue text-white px-6 py-3 rounded-full font-medium flex items-center justify-center space-x-2 hover:bg-gdg-blue/90"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                  >
+                    <span>🚀</span>
+                    <span>Join Community</span>
+                  </motion.button>
+                )}
               </div>
             </motion.div>
           )}
