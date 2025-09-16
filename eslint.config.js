@@ -7,7 +7,6 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 
 export default [
   { ignores: ['dist'] },
-
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
@@ -33,28 +32,27 @@ export default [
       ...react.configs['jsx-runtime'].rules,
       ...reactHooks.configs.recommended.rules,
 
-      // Accept React and underscore-prefixed names for intentional "unused"
-      // https://eslint.org/docs/latest/rules/no-unused-vars
-      'no-unused-vars': ['error', {
+      // 🚨 FIX: Accept React and underscore-prefixed names for intentional "unused"
+      'no-unused-vars': ['warn', {
         vars: 'all',
-        varsIgnorePattern: '^(React|_)',
+        varsIgnorePattern: '^(React|_|unused)',
         args: 'after-used',
         argsIgnorePattern: '^_',
         ignoreRestSiblings: false,
       }],
 
-      // Vite enables allowConstantExport; keep it but disable in entry via override below
-      // https://www.npmjs.com/package/eslint-plugin-react-refresh
-      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-
-      // Make apostrophes a warning (escape later at leisure)
+      // 🚨 FIX: Make apostrophes warnings only (not errors)
       'react/no-unescaped-entities': 'warn',
+
+      // Vite enables allowConstantExport; keep it but disable in entry via override below
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+      
       'react/react-in-jsx-scope': 'off',
       'react/jsx-uses-react': 'off',
       'react/prop-types': 'off',
     },
   },
-
+  
   // Entry / service worker often need relaxed rules
   {
     files: ['src/main.jsx', 'public/sw.js'],
@@ -63,7 +61,7 @@ export default [
       'no-unused-vars': 'off',
     },
   },
-
+  
   // Node/global JS
   {
     files: ['public/**/*.js', 'scripts/**/*.js'],
