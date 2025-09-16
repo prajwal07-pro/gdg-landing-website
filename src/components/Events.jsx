@@ -5,7 +5,10 @@ const Events = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [selectedFilter, setSelectedFilter] = useState('All Events');
-  const [hoveredEvent, setHoveredEvent] = useState(null);
+  
+  // ❌ REMOVED: const [hoveredEvent, setHoveredEvent] = useState(null); - unused
+  // ❌ REMOVED: useTransform import - unused
+  // ❌ REMOVED: mousePosition state - unused
 
   const filters = ['All Events', 'DevFest', 'Workshops', 'Online', 'Offline', 'Upcoming'];
 
@@ -97,7 +100,7 @@ const Events = () => {
       if (selectedFilter === 'Upcoming') return event.status === 'upcoming';
       return true;
     });
-  }, [selectedFilter, events]);
+  }, [selectedFilter]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -209,8 +212,6 @@ const Events = () => {
                 key={event.id}
                 className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group cursor-pointer"
                 variants={cardVariants}
-                onHoverStart={() => setHoveredEvent(event.id)}
-                onHoverEnd={() => setHoveredEvent(null)}
                 whileHover={{ scale: 1.02, y: -4 }}
                 exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
                 layout
