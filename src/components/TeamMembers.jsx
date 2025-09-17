@@ -12,6 +12,13 @@ const TeamMembers = () => {
       name: 'Leadership',
       members: [
         {
+          name: 'Ranjana NAgagouder',
+          role: 'Faculty Adviser',
+          organization: 'VISVESVARAYA TECHNOLOGICAL UNIVERSITY',
+          image: '/team/organizer-2.jpg',
+          isOrganizer: true
+        },
+        {
           name: 'Piyush Annigeri',
           role: 'GDGoC Organizer',
           organization: 'VISVESVARAYA TECHNOLOGICAL UNIVERSITY',

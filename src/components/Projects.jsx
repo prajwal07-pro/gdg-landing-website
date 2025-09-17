@@ -6,30 +6,30 @@ const Projects = () => {
   const isInView = useInView(ref, { once: true });
 
   const projects = [
-    {
-      title: 'Community Portal',
-      description: 'A comprehensive platform for community members to connect and collaborate',
-      tech: ['React', 'Firebase', 'Tailwind'],
-      github: '#',
-      live: '#',
-      image: '🌐'
-    },
-    {
-      title: 'Event Management System',
-      description: 'Streamlined event planning and RSVP management system',
-      tech: ['Node.js', 'MongoDB', 'Express'],
-      github: '#',
-      live: '#',
-      image: '📅'
-    },
-    {
-      title: 'Learning Hub',
-      description: 'Educational resources and tutorial management platform',
-      tech: ['Vue.js', 'Django', 'PostgreSQL'],
-      github: '#',
-      live: '#',
-      image: '📚'
-    }
+    // {
+    //   title: 'Community Portal',
+    //   description: 'A comprehensive platform for community members to connect and collaborate',
+    //   tech: ['React', 'Firebase', 'Tailwind'],
+    //   github: '#',
+    //   live: '#',
+    //   image: '🌐'
+    // },
+    // {
+    //   title: 'Event Management System',
+    //   description: 'Streamlined event planning and RSVP management system',
+    //   tech: ['Node.js', 'MongoDB', 'Express'],
+    //   github: '#',
+    //   live: '#',
+    //   image: '📅'
+    // },
+    // {
+    //   title: 'Learning Hub',
+    //   description: 'Educational resources and tutorial management platform',
+    //   tech: ['Vue.js', 'Django', 'PostgreSQL'],
+    //   github: '#',
+    //   live: '#',
+    //   image: '📚'
+    // }
   ];
 
   return (

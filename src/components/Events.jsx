@@ -6,87 +6,23 @@ const Events = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [selectedFilter, setSelectedFilter] = useState('All Events');
   
-  // ❌ REMOVED: const [hoveredEvent, setHoveredEvent] = useState(null); - unused
-  // ❌ REMOVED: useTransform import - unused
-  // ❌ REMOVED: mousePosition state - unused
 
   const filters = ['All Events', 'DevFest', 'Workshops', 'Online', 'Offline', 'Upcoming'];
 
   const events = [
     {
       id: 1,
-      title: 'DevFest Bengaluru 2025',
-      date: 'Nov 22',
-      time: '9:00 AM IST',
-      location: 'Bengaluru',
-      type: 'DevFest',
-      attendees: 500,
-      image: '/events/devfest-bengaluru.png',
+      title: 'Orientation Session',
+      date: 'Sept 18',
+      time: '2:00 AM IST',
+      location: 'Belgaum',
+      type: 'Introduction',
+      attendees: '-',
+      image: '/events/orientation.png',
       status: 'upcoming',
-      description: 'The biggest developer festival in Bengaluru featuring talks, workshops, and networking',
+      description: 'Kickstart your journey at our Orientation Session—learn, build, and innovate with us!',
       featured: true,
       cohosted: false
-    },
-    {
-      id: 2,
-      title: 'Google I/O Extended 2025',
-      date: 'Sep 20',
-      time: '10:00 AM IST',
-      location: 'Chennai',
-      type: 'Conference',
-      attendees: 300,
-      image: '/events/google-io-extended.png',
-      status: 'upcoming',
-      description: 'Extended coverage of Google I/O with local speakers and hands-on sessions'
-    },
-    {
-      id: 3,
-      title: 'DevFest 2025 Chennai',
-      date: 'Nov 8',
-      time: '9:30 AM IST',
-      location: 'Chennai',
-      type: 'DevFest',
-      attendees: 400,
-      image: '/events/devfest-chennai.png',
-      status: 'upcoming',
-      description: 'Annual developer festival with latest Google technologies and innovations',
-      cohosted: true
-    },
-    {
-      id: 4,
-      title: 'DevFest Kochi 2025',
-      date: 'Nov 1',
-      time: '8:30 AM IST',
-      location: 'Kochi',
-      type: 'DevFest',
-      attendees: 350,
-      image: '/events/devfest-kochi.png',
-      status: 'upcoming',
-      description: 'Kerala\'s premier developer conference featuring AI, Cloud, and Mobile technologies'
-    },
-    {
-      id: 5,
-      title: 'Cloud Computing Workshop',
-      date: 'Oct 15',
-      time: '2:00 PM IST',
-      location: 'Online',
-      type: 'Workshop',
-      attendees: 150,
-      image: '/events/cloud-computing.png',
-      status: 'upcoming',
-      description: 'Deep dive into Google Cloud Platform and serverless architectures'
-    },
-    {
-      id: 6,
-      title: 'AI/ML Bootcamp',
-      date: 'Oct 25',
-      time: '10:00 AM IST',
-      location: 'VTU Campus',
-      type: 'Workshop',
-      attendees: 200,
-      image: '/events/ai-ml-workshop.png',
-      status: 'upcoming',
-      description: 'Hands-on machine learning workshop with TensorFlow and real-world projects'
     }
   ];
 
