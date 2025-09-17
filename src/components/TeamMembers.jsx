@@ -38,15 +38,6 @@ const TeamMembers = () => {
           image: '/team/tech-2.jpg',
           profileLink: 'www.github.com/yashkoaprde'
         },
-        {
-          name: 'Kartik Kuriyavar',
-          role: 'Tech Lead',
-          organization: 'VTU',
-          image: '/team/tech-3.jpg',
-          profileLink: '#'
-        }
-      ]
-    },
     {
       name: 'PR & Outreach Team',
       members: [
