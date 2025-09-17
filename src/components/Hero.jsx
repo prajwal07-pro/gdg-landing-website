@@ -214,9 +214,9 @@ const Hero = () => {
           variants={itemVariants}
         >
           {[
-            { number: '500+', label: 'Members', icon: '👥', color: 'text-gdg-blue' },
-            { number: '50+', label: 'Events', icon: '📅', color: 'text-gdg-red' },
-            { number: '25+', label: 'Projects', icon: '🚀', color: 'text-gdg-green' }
+            // { number: '11', label: 'Members', icon: '👥', color: 'text-gdg-blue' },
+            // { number: '1', label: 'Events', icon: '📅', color: 'text-gdg-red' },
+            // { number: '0', label: 'Projects', icon: '🚀', color: 'text-gdg-green' }
           ].map((stat, index) => (
             <motion.div
               key={index}

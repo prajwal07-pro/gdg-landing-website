@@ -12,7 +12,7 @@ const TeamMembers = () => {
       name: 'Leadership',
       members: [
         {
-          name: 'Ranjana NAgagouder',
+          name: 'Ranjana Nagagouder',
           role: 'Faculty Adviser',
           organization: 'VISVESVARAYA TECHNOLOGICAL UNIVERSITY',
           image: '/team/organizer-2.jpg',

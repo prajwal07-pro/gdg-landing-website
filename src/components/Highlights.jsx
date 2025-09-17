@@ -6,30 +6,30 @@ const Highlights = () => {
   const isInView = useInView(ref, { once: true });
 
   const highlights = [
-    {
-      icon: '👥',
-      number: '500+',
-      label: 'Community Members',
-      color: 'text-gdg-blue'
-    },
-    {
-      icon: '📅',
-      number: '50+',
-      label: 'Events Hosted',
-      color: 'text-gdg-red'
-    },
-    {
-      icon: '🚀',
-      number: '25+',
-      label: 'Open Source Projects',
-      color: 'text-gdg-green'
-    },
-    {
-      icon: '⭐',
-      number: '100+',
-      label: 'Member Satisfaction',
-      color: 'text-gdg-yellow'
-    }
+    // {
+    //   icon: '👥',
+    //   number: '500+',
+    //   label: 'Community Members',
+    //   color: 'text-gdg-blue'
+    // },
+    // {
+    //   icon: '📅',
+    //   number: '50+',
+    //   label: 'Events Hosted',
+    //   color: 'text-gdg-red'
+    // },
+    // {
+    //   icon: '🚀',
+    //   number: '25+',
+    //   label: 'Open Source Projects',
+    //   color: 'text-gdg-green'
+    // },
+    // {
+    //   icon: '⭐',
+    //   number: '100+',
+    //   label: 'Member Satisfaction',
+    //   color: 'text-gdg-yellow'
+    // }
   ];
 
   return (
@@ -41,9 +41,9 @@ const Highlights = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
+          {/* <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
             Our community&apos;s achievements and the impact we make together
-          </h2>
+          </h2> */}
         </motion.div>
 
         <motion.div
