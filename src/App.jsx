@@ -1,22 +1,29 @@
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import './styles/global.css';
 
-// Components
+// Core components (loaded immediately)
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
-import About from './components/About';
-import CommunityValues from './components/CommunityValues';
-import Events from './components/Events';
-import Projects from './components/Projects';
-import TeamMembers from './components/TeamMembers'; // Changed from Technologies
-import Highlights from './components/Highlights';
-import Footer from './components/Footer';
 import ErrorFallback from './components/ErrorFallback';
 
-// Pages
-import SignIn from './pages/SignIn';
+// Lazy load heavy components (loaded when needed)
+const About = lazy(() => import('./components/About'));
+const CommunityValues = lazy(() => import('./components/CommunityValues'));
+const Events = lazy(() => import('./components/Events'));
+const Projects = lazy(() => import('./components/Projects'));
+const TeamMembers = lazy(() => import('./components/TeamMembers'));
+const Highlights = lazy(() => import('./components/Highlights'));
+const Footer = lazy(() => import('./components/Footer'));
+const SignIn = lazy(() => import('./pages/SignIn'));
+
+// Loading component
+const LoadingSpinner = () => (
+  <div className="flex items-center justify-center min-h-screen">
+    <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gdg-blue"></div>
+  </div>
+);
 
 // Home Page Component
 const HomePage = () => (
@@ -30,14 +37,16 @@ const HomePage = () => (
     <Navigation />
     <main className="pt-16">
       <Hero />
-      <About />
-      <CommunityValues />
-      <Events />
-      <Projects />
-      <TeamMembers />
-      <Highlights />
+      <Suspense fallback={<LoadingSpinner />}>
+        <About />
+        <CommunityValues />
+        <Events />
+        <Projects />
+        <TeamMembers />
+        <Highlights />
+        <Footer />
+      </Suspense>
     </main>
-    <Footer />
   </motion.div>
 );
 
@@ -45,10 +54,7 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-    // Initialize Firebase and other services
     console.log('GDG VTU Website Loaded');
-    
-    // Scroll to top on route change
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
@@ -58,8 +64,14 @@ function App() {
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<HomePage />} />
-            <Route path="/signin" element={<SignIn />} />
-            {/* Add catch-all route for 404s */}
+            <Route 
+              path="/signin" 
+              element={
+                <Suspense fallback={<LoadingSpinner />}>
+                  <SignIn />
+                </Suspense>
+              } 
+            />
             <Route path="*" element={<HomePage />} />
           </Routes>
         </AnimatePresence>

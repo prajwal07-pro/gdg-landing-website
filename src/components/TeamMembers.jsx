@@ -16,10 +16,10 @@ const TeamMembers = () => {
           role: 'GDGoC Organizer',
           organization: 'VISVESVARAYA TECHNOLOGICAL UNIVERSITY',
           image: '/team/organizer.jpg',
-          profileLink: '#',
           isOrganizer: true
         }
-      ]
+      ],
+       
     },
     {
       name: 'Tech Team',
@@ -29,31 +29,31 @@ const TeamMembers = () => {
           role: 'Tech Lead',
           organization: 'VTU',
           image: '/team/tech-1.jpg',
-          profileLink: '#'
+          
         },
         {
           name: 'Yash Koparde',
           role: 'Tech Lead',
           organization: 'VTU',
           image: '/team/tech-2.jpg',
-          profileLink: 'www.github.com/yashkoaprde'
         },
+        
+      ]
+    },
     {
       name: 'PR & Outreach Team',
       members: [
         {
-          name: 'Sneha Reddy',
+          name: 'Advika Gurav',
           role: 'PR Lead',
           organization: 'VTU',
           image: '/team/pr-1.jpg',
-          profileLink: '#'
         },
         {
-          name: 'Kiran Joshi',
+          name: 'Sadik Allibai',
           role: 'Outreach Coordinator',
           organization: 'VTU',
           image: '/team/pr-2.jpg',
-          profileLink: '#'
         }
       ]
     },
@@ -61,25 +61,22 @@ const TeamMembers = () => {
       name: 'Event Coordinator Team',
       members: [
         {
-          name: 'Anita Desai',
+          name: 'Syed Maaz',
           role: 'Event Manager',
           organization: 'VTU',
           image: '/team/event-1.jpg',
-          profileLink: '#'
         },
         {
-          name: 'Vikram Singh',
+          name: 'Ananya Sudhanshu',
           role: 'Logistics Coordinator',
           organization: 'VTU',
           image: '/team/event-2.jpg',
-          profileLink: '#'
         },
         {
-          name: 'Meera Nair',
+          name: 'Deepa Kallagonal',
           role: 'Event Planning Lead',
           organization: 'VTU',
           image: '/team/event-3.jpg',
-          profileLink: '#'
         }
       ]
     },
@@ -87,18 +84,16 @@ const TeamMembers = () => {
       name: 'Content Creator Team',
       members: [
         {
-          name: 'Rohit Gupta',
+          name: 'Shravan Chougule',
           role: 'Content Lead',
           organization: 'VTU',
           image: '/team/content-1.jpg',
-          profileLink: '#'
         },
         {
-          name: 'Kavya Iyer',
+          name: 'Hashada Kadam',
           role: 'Social Media Manager',
           organization: 'VTU',
           image: '/team/content-2.jpg',
-          profileLink: '#'
         }
       ]
     }
