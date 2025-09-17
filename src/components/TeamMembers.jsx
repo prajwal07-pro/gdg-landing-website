@@ -314,27 +314,6 @@ const TeamMembers = () => {
             </motion.div>
           ))}
         </motion.div>
-
-        {/* Call to Action */}
-        <motion.div
-          className="text-center mt-16 relative z-10"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.5 }}
-        >
-          <h3 className="text-2xl font-bold mb-4">Want to Join Our Team?</h3>
-          <p className="text-text-secondary mb-6 max-w-2xl mx-auto">
-            We're always looking for passionate individuals to help grow our community. 
-            Join us and make a difference in the developer ecosystem!
-          </p>
-          <motion.button
-            className="bg-gdg-gradient text-white px-8 py-3 rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-200"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Join Our Team
-          </motion.button>
-        </motion.div>
       </div>
     </section>
   );
