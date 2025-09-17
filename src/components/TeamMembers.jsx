@@ -25,22 +25,22 @@ const TeamMembers = () => {
       name: 'Tech Team',
       members: [
         {
-          name: 'Arjun Kumar',
+          name: 'Prajwal Rawoot',
           role: 'Tech Lead',
           organization: 'VTU',
           image: '/team/tech-1.jpg',
           profileLink: '#'
         },
         {
-          name: 'Priya Sharma',
-          role: 'Full Stack Developer',
+          name: 'Yash Koparde',
+          role: 'Tech Lead',
           organization: 'VTU',
           image: '/team/tech-2.jpg',
-          profileLink: '#'
+          profileLink: 'www.github.com/yashkoaprde'
         },
         {
-          name: 'Rahul Patil',
-          role: 'Mobile App Developer',
+          name: 'Kartik Kuriyavar',
+          role: 'Tech Lead',
           organization: 'VTU',
           image: '/team/tech-3.jpg',
           profileLink: '#'
