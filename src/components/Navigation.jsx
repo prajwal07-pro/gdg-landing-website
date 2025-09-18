@@ -53,12 +53,21 @@ const Navigation = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-gdg-gradient rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">GDG</span>
-            </div>
-            <span className="text-xl font-bold bg-gdg-gradient bg-clip-text text-transparent">
-              GDG Chapter
-            </span>
+            <img 
+  src="/gdg-logo.png"  // Change this path
+  alt="GDG VTU Logo" 
+  className="h-8 w-8"
+/>
+
+            <div className="flex flex-col">
+  <span className="text-xl font-bold">
+    GDG
+  </span>
+  <span className="text-xs text-gray-600 -mt-1">
+    Visvesvaraya Technological University
+  </span>
+</div>
+
           </Link>
 
           {/* Desktop Navigation */}
@@ -86,9 +95,9 @@ const Navigation = () => {
                   className="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-100 transition-colors"
                 >
                   <img
-                    src={getUserAvatar()}
+                    src="/home/prajwal/Public/GDG/gdg-landing/public/gdg-logo.png"
                     alt="Profile"
-                    className="w-8 h-8 rounded-full border-2 border-gdg-blue"
+                    className="w-8 h-8"
                   />
                   <span className="text-sm font-medium text-gray-700 max-w-20 truncate">
                     {getUserDisplayName()}

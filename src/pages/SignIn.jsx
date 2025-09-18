@@ -190,14 +190,6 @@ const SignIn = () => {
       >
         {/* Header */}
         <div className="text-center">
-          <Link to="/" className="inline-flex items-center space-x-3 mb-8 group">
-            <div className="w-12 h-12 bg-gdg-gradient rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-              <span className="text-white font-bold text-lg">GDG</span>
-            </div>
-            <span className="text-2xl font-bold bg-gdg-gradient bg-clip-text text-transparent">
-              GDG Chapter
-            </span>
-          </Link>
           <h2 className="text-3xl font-bold text-gray-900">
             {isLogin ? 'Welcome back!' : 'Join our community'}
           </h2>

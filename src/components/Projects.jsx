@@ -133,13 +133,17 @@ const Projects = () => {
           </div>
           <h3 className="text-2xl font-bold text-text-primary mb-4">No projects found matching the moment.</h3>
           <p className="text-text-secondary mb-6">Explore our community projects and contribute to open source!</p>
-          <motion.button
-            className="gdg-button-secondary"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            View All
-          </motion.button>
+          <motion.a
+  href="https://github.com/community-gdgvtu"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="bg-gdg-blue text-white px-6 py-3 rounded-full font-medium hover:bg-gdg-blue/90 transition-colors inline-block"
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+>
+  View All
+</motion.a>
+
         </motion.div>
       </div>
     </section>

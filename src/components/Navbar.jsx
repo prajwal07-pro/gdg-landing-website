@@ -53,12 +53,13 @@ export default function Navbar() {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
             <img 
-              src="/gdg-logo.png" 
+              src="/home/prajwal/Public/GDG/gdg-landing/public/gdg-logo.png" 
               alt="GDG VTU Logo" 
               className="h-8 w-8"
               onError={(e) => {
                 e.target.src = 'https://developers.google.com/static/community/images/gdg-lockup.svg';
-              }}
+              }
+            }
             />
             <span className="text-xl font-bold bg-gdg-gradient bg-clip-text text-transparent">
               GDG VTU

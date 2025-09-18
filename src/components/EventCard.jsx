@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 
+const RSVP_URL = "https://forms.gle/your-rsvp-link";
+
 const EventCard = ({ event, index }) => {
   const colors = ['gdg-red', 'gdg-blue', 'gdg-yellow', 'gdg-green'];
   const borderColor = colors[index % colors.length];
@@ -31,7 +33,14 @@ const EventCard = ({ event, index }) => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          RSVP Now
+          <a
+            href={RSVP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full bg-gdg-blue px-4 py-2 text-white text-sm font-semibold shadow-gdg hover:bg-gdg-blue/90 transition-colors"
+          >
+            RSVP Now
+          </a>
         </motion.button>
       </div>
     </motion.div>

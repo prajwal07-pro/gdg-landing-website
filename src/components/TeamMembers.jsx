@@ -207,13 +207,18 @@ const TeamMembers = () => {
               </h3>
 
               {/* Team Members */}
-              <div className={`flex flex-wrap justify-center gap-8 ${
-                team.members.length === 1 
-                  ? 'max-w-sm mx-auto' 
-                  : team.members.length === 2 
-                    ? 'max-w-lg mx-auto' 
-                    : 'max-w-4xl mx-auto'
-              }`}>
+              <div className={`${
+  team.name === 'Leadership' 
+    ? 'grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto' 
+    : `flex flex-wrap justify-center gap-8 ${
+        team.members.length === 1 
+          ? 'max-w-sm mx-auto' 
+          : team.members.length === 2 
+            ? 'max-w-lg mx-auto' 
+            : 'max-w-4xl mx-auto'
+      }`
+}`}>
+
                 {team.members.map((member, memberIndex) => (
                   <motion.div
                     key={memberIndex}

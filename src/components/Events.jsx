@@ -212,13 +212,17 @@ const Events = () => {
                   </div>
 
                   {/* RSVP Button */}
-                  <motion.button
-                    className="w-full bg-gdg-gradient text-white py-3 px-4 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-200"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    RSVP Now
-                  </motion.button>
+                  <motion.a
+  href="https://gdg.community.dev/events/details/google-gdg-on-campus-visvesvaraya-technological-university-belgaum-india-presents-welcome-to-gdg-on-campus-orientation-campaign"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="w-full bg-gdg-gradient text-white py-3 px-4 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-200 text-center block"
+  whileHover={{ scale: 1.02 }}
+  whileTap={{ scale: 0.98 }}
+>
+  RSVP Now
+</motion.a>
+
                 </div>
               </motion.div>
             ))}
