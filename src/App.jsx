@@ -16,7 +16,7 @@ const Projects = lazy(() => import('./components/Projects'));
 const TeamMembers = lazy(() => import('./components/TeamMembers'));
 const Highlights = lazy(() => import('./components/Highlights'));
 const Footer = lazy(() => import('./components/Footer'));
-const SignIn = lazy(() => import('./pages/SignIn'));
+
 
 // Loading component
 const LoadingSpinner = () => (
@@ -64,14 +64,7 @@ function App() {
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<HomePage />} />
-            <Route 
-              path="/signin" 
-              element={
-                <Suspense fallback={<LoadingSpinner />}>
-                  <SignIn />
-                </Suspense>
-              } 
-            />
+            
             <Route path="*" element={<HomePage />} />
           </Routes>
         </AnimatePresence>

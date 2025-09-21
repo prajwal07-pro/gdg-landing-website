@@ -16,10 +16,7 @@ const Navigation = () => {
     { key: 'community', href: '#community', label: 'Community' }
   ];
 
-  const handleJoinCommunity = () => {
-    navigate('/signin');
-    setIsMenuOpen(false);
-  };
+  
 
   const handleLogout = async () => {
     try {
@@ -151,15 +148,18 @@ const Navigation = () => {
               </div>
             ) : (
               /* Blue Join Community Button */
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={handleJoinCommunity}
-                className="bg-gdg-blue text-white px-6 py-2 rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2 hover:bg-gdg-blue/90"
-              >
-                <span>🚀</span>
-                <span>Join Community</span>
-              </motion.button>
+             <motion.a
+  href="https://gdgoc-house-of-colors.vercel.app/"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="bg-gdg-blue text-white px-6 py-2 rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2 hover:bg-gdg-blue/90"
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+>
+  <span>🚀</span>
+  <span>Join Community</span>
+</motion.a>
+
             )}
           </div>
 
